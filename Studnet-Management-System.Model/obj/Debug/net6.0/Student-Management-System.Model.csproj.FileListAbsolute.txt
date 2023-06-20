@@ -1,0 +1,14 @@
+E:\StudentManagementSystem\Studnet-Management-System.Model\bin\Debug\net6.0\Student-Management-System.Model.deps.json
+E:\StudentManagementSystem\Studnet-Management-System.Model\bin\Debug\net6.0\Student-Management-System.Model.runtimeconfig.json
+E:\StudentManagementSystem\Studnet-Management-System.Model\bin\Debug\net6.0\Student-Management-System.Model.dll
+E:\StudentManagementSystem\Studnet-Management-System.Model\bin\Debug\net6.0\Student-Management-System.Model.pdb
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\Student-Management-System.Model.csproj.AssemblyReference.cache
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\Student-Management-System.Model.GeneratedMSBuildEditorConfig.editorconfig
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\Student-Management-System.Model.AssemblyInfoInputs.cache
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\Student-Management-System.Model.AssemblyInfo.cs
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\Student-Management-System.Model.csproj.CoreCompileInputs.cache
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\Student-Management-System.Model.dll
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\refint\Student-Management-System.Model.dll
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\Student-Management-System.Model.pdb
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\Student-Management-System.Model.genruntimeconfig.cache
+E:\StudentManagementSystem\Studnet-Management-System.Model\obj\Debug\net6.0\ref\Student-Management-System.Model.dll
