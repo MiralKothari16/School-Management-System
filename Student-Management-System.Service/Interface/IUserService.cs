@@ -11,11 +11,13 @@ namespace Student_Management_System.Service.Interface
 {
     public interface IUserService
     {
-        
+
         // ResponseDTO UserPagination(int page, int content);
-        ResponseDTO AddUser(AddUserDTO user);
-        ResponseDTO UpdateUser(UpdateUserDTO user);
-        ResponseDTO DeleteUser(int Id);
+        //ResponseDTO AddUser(AddUserDTO user);
+        //ResponseDTO UpdateUser(UpdateUserDTO user);
+        //ResponseDTO DeleteUser(int Id);
+        //ResponseDTO GetUserByEmail(string Email);
+
         ResponseDTO GetUserByEmail(string Email);
     }
 }

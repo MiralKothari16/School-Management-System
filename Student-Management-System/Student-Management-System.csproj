@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Studnet-Management-System.Model\Student-Management-System.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
