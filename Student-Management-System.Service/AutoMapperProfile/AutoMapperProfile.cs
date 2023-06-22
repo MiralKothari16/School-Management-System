@@ -15,11 +15,24 @@ namespace Student_Management_System.Service.AutoMapperProfile
     {
         public AutoMapperProfile() {
 
+            #region Admin
+            CreateMap<Admin, GetAdminDTO>();
+            CreateMap<AddAdminDTO, Admin>();
+            CreateMap<UpdateAdminDTO, Admin>();
+            #endregion
+
             #region Student
             CreateMap<Student, GetStudentDTO>();
             CreateMap<AddStudentDTO, Student>();
             CreateMap<UpdateStudentDTO, Student>();
             #endregion
+
+            #region Teacher
+            CreateMap<Teacher, GetTeacherDTO>();
+            CreateMap<AddTeacherDTO, Teacher>();
+            CreateMap<UpdateTeacherDTO, Teacher>();
+            #endregion
+
 
             #region User
             CreateMap<User, GetUserDTO>();

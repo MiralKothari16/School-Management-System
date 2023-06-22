@@ -42,7 +42,7 @@ namespace Student_Management_System.Service.DTO.UpdateDTO
         [Column(TypeName = "datetime")]
         public DateTime DateOfAdmission { get; set; }
 
-        public bool IsActive { get; set; } 
+       // public bool IsActive { get; set; } 
 
         public int? ModifiedBy { get; set; }
 

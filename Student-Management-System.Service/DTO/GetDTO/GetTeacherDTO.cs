@@ -14,7 +14,7 @@ namespace Student_Management_System.Service.DTO.GetDTO
         public string Class { get; set; }
         public string Subject { get; set; }
         public DateTime DateofBirth { get; set; }
-        public DateTime DateofAdmission { get; set; }
+        public DateTime EnrollmentDate { get; set; }
         public string Qualification { get; set; }
     }
 }

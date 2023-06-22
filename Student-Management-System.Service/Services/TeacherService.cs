@@ -1,41 +1,42 @@
-﻿using Student_Management_System.Service.DTO;
+﻿using AutoMapper;
+using Student_Management_System.Service.DTO;
 using Student_Management_System.Service.DTO.AddDTO;
+using Student_Management_System.Service.DTO.GetDTO;
 using Student_Management_System.Service.DTO.UpdateDTO;
 using Student_Management_System.Service.Interface;
-using AutoMapper;
-
+using Studnet_Management_System.Model;
+using Studnet_Management_System.Model.Interface;
+using Studnet_Management_System.Model.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Studnet_Management_System.Model.Interface;
-using Studnet_Management_System.Model;
-using Student_Management_System.Service.DTO.GetDTO;
 
 namespace Student_Management_System.Service.Services
 {
-    public class StudentService : IStudentService
+    public class TeacherService :ITeacherService
     {
         #region Fields
-        private readonly IStudentRepository _studentRepository;
+        private readonly ITeacherRepository _teacherRepository;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         #endregion
 
         #region Constructor
-        public StudentService(IUserRepository userRepository, IMapper mapper, IStudentRepository studentRepository)
+        public TeacherService(IUserRepository userRepository, IMapper mapper, ITeacherRepository teacherRepository)
         {
-            _studentRepository = studentRepository;
+            _teacherRepository = teacherRepository;
             _mapper = mapper;
             _userRepository = userRepository;
         }
-        #endregion
-        public ResponseDTO AddStudent(AddStudentDTO student)
+
+        public ResponseDTO AddTeacher(AddTeacherDTO teacher)
         {
             var response = new ResponseDTO();
             try
             {
-                var resultEmail = _studentRepository.GetStudentByEmail(student.Email);
+                var resultEmail = _teacherRepository.GetTeacherByEmail(teacher.Email);
                 if (resultEmail != null)
                 {
                     response.Status = 400;
@@ -43,18 +44,18 @@ namespace Student_Management_System.Service.Services
                     response.Error = "Email already exist.";
                     return response;
                 }
-                student.IsActive = true;
-                var addstudent = _studentRepository.AddStudent(_mapper.Map<Student>(student));
-                if (addstudent > 0)
+                teacher.IsActive = true;
+                var addteacher = _teacherRepository.AddTeacher(_mapper.Map<Teacher>(teacher));
+                if (addteacher > 0)
                 {
-                    var resultbyId = _studentRepository.GetStudentById(addstudent);
-                    if (resultbyId!=null)
+                    var resultbyId = _teacherRepository.GetTeacherById(addteacher);
+                    if (resultbyId != null)
                     {
                         var role = new User
                         {
-                            Email = student.Email,
-                            Password = student.Password,
-                            RoleId = 3,
+                            Email = teacher.Email,
+                            Password = teacher.Password,
+                            RoleId = 2,
                             IsActive = true,
                             RegisterrdId = resultbyId.Id,
 
@@ -63,7 +64,7 @@ namespace Student_Management_System.Service.Services
                     }
                 }
                 response.Status = 204;
-                response.Message = "Student Created";
+                response.Message = "Teacher Created";
             }
             catch (Exception ex)
             {
@@ -74,21 +75,21 @@ namespace Student_Management_System.Service.Services
             return response;
         }
 
-        public ResponseDTO DeleteStudent(int Id)
+        public ResponseDTO DeleteTeacher(int Id)
         {
             var response = new ResponseDTO();
             try
             {
-                var studentById = _studentRepository.GetStudentById(Id);
-                if (studentById == null)
+                var teacherById = _teacherRepository.GetTeacherById(Id);
+                if (teacherById == null)
                 {
                     response.Status = 404;
                     response.Message = "Not found";
-                    response.Error = "student not found.";
+                    response.Error = "User not found.";
                     return response;
                 }
-                studentById.IsActive = false;
-                var deleteFlag = _studentRepository.DeleteStudent(studentById);
+                teacherById.IsActive = false;
+                var deleteFlag = _teacherRepository.DeleteTeacher(teacherById);
                 if (deleteFlag)
                 {
                     response.Status = 200;
@@ -97,8 +98,8 @@ namespace Student_Management_System.Service.Services
                 else
                 {
                     response.Status = 400;
-                    response.Message = "Student Not Deleted";
-                    response.Error = "Student Not Deleted";
+                    response.Message = "Teacher Not Deleted";
+                    response.Error = "Teacher Not Deleted";
                 }
             }
             catch (Exception ex)
@@ -110,22 +111,22 @@ namespace Student_Management_System.Service.Services
             return response;
         }
 
-        public ResponseDTO GetStudentByEmail(string Email)
+        public ResponseDTO GetTeacherByEmail(string Email)
         {
             var response = new ResponseDTO();
             try
             {
-                var resultemail = _studentRepository.GetStudentByEmail(Email);
+                var resultemail = _teacherRepository.GetTeacherByEmail(Email);
                 if (resultemail == null)
                 {
                     response.Status = 404;
                     response.Message = "Not Found.";
-                    response.Error = "Student not found.";
+                    response.Error = "Teacher not found.";
                     return response;
                 }
                 else
                 {
-                    var result = _mapper.Map<GetStudentDTO>(resultemail);
+                    var result = _mapper.Map<GetTeacherDTO>(resultemail);
                     response.Status = 200;
                     response.Data = result;
                     response.Message = "Ok";
@@ -140,22 +141,22 @@ namespace Student_Management_System.Service.Services
             return response;
         }
 
-        public ResponseDTO GetStudentById(int Id)
+        public ResponseDTO GetTeacherById(int Id)
         {
             var response = new ResponseDTO();
             try
             {
-                var resultStudentId = _studentRepository.GetStudentById(Id);
-                if (resultStudentId == null)
+                var resultTeacherId = _teacherRepository.GetTeacherById(Id);
+                if (resultTeacherId == null)
                 {
                     response.Status = 404;
                     response.Message = "Not Found";
-                    response.Error = "Student not Found.";
+                    response.Error = "Teacher not Found.";
                     return response;
                 }
                 else
                 {
-                    var result = _mapper.Map<GetStudentDTO>(resultStudentId);
+                    var result = _mapper.Map<GetTeacherDTO>(resultTeacherId);
                     response.Status = 200;
                     response.Data = result; ;
                     response.Message = "Ok";
@@ -170,12 +171,12 @@ namespace Student_Management_System.Service.Services
             return response;
         }
 
-        public ResponseDTO GetStudents()
+        public ResponseDTO GetTeachers()
         {
             var response = new ResponseDTO();
             try
             {
-                var users = _mapper.Map<List<GetStudentDTO>>(_studentRepository.GetStudents().ToList());
+                var users = _mapper.Map<List<GetTeacherDTO>>(_teacherRepository.GetTeachers().ToList());
                 response.Status = 200;
                 response.Data = users;
                 response.Message = "OK";
@@ -189,40 +190,40 @@ namespace Student_Management_System.Service.Services
             return response;
         }
 
-        public ResponseDTO UpdateStudent(UpdateStudentDTO student)
+        public ResponseDTO UpdateTeacher(UpdateTeacherDTO teacher)
         {
             var response = new ResponseDTO();
             try
             {
-                var resultId = _studentRepository.GetStudentById(student.Id);
+                var resultId = _teacherRepository.GetTeacherById(teacher.Id);
                 if (resultId == null)
                 {
                     response.Status = 404;
                     response.Message = "Not Found.";
-                    response.Error = "Student not found.";
+                    response.Error = "Teacher not found.";
                     return response;
                 }
-                var resultEmail = _studentRepository.GetStudentByEmail(student.Email);
-                if (resultEmail != null && resultEmail.Id != student.Id)
+                var resultEmail = _teacherRepository.GetTeacherByEmail(teacher.Email);
+                if (resultEmail != null && resultEmail.Id != teacher.Id)
                 {
                     response.Status = 400;
                     response.Message = "Not Created.";
-                    response.Error = "Student with this email already exist.";
+                    response.Error = "Teacher with this email already exist.";
                     return response;
                 }
-                var updateStudent = _studentRepository.UpdateStudent(_mapper.Map<Student>(student));
+                var updateTeacher = _teacherRepository.UpdateTeacher(_mapper.Map<Teacher>(teacher));
 
-                if (updateStudent != null)
+                if (updateTeacher != null)
                 {
                     response.Status = 204;
-                    response.Message = "Student Updated Successfully.";
+                    response.Message = "Teacher Updated Successfully.";
                     return response;
                 }
                 else
                 {
                     response.Status = 400;
                     response.Message = "Not Updated.";
-                    response.Error = "Student is not updated.";
+                    response.Error = "Teacher is not updated.";
                 }
             }
             catch (Exception ex)
@@ -233,5 +234,7 @@ namespace Student_Management_System.Service.Services
             }
             return response;
         }
+
+        #endregion
     }
 }

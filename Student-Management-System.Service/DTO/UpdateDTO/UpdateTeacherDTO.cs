@@ -17,7 +17,6 @@ namespace Student_Management_System.Service.DTO.UpdateDTO
         [MaxLength(30, ErrorMessage = "Name can not be longer than {1} characters.")]
         public string Name { get; set; }
 
-
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Email address is Invalid.")]
         [MaxLength(30, ErrorMessage = "Email address should not be more than {1} characters long.")]
@@ -47,7 +46,7 @@ namespace Student_Management_System.Service.DTO.UpdateDTO
         [MaxLength(50, ErrorMessage = "Qualification can not be longer than {1} characters.")]
         public string Qualification { get; set; }
 
-        public bool IsActive { get; set; }
+       // public bool IsActive { get; set; }
 
         public int? ModifiedBy { get; set; }
 
