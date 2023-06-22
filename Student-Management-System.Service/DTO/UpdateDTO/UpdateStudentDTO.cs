@@ -11,6 +11,8 @@ namespace Student_Management_System.Service.DTO.UpdateDTO
 {
     public  class UpdateStudentDTO
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Name is required")]
         [MaxLength(30, ErrorMessage = "Name can not be longer than {1} characters.")]
         public string Name { get; set; }

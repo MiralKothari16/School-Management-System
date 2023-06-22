@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Student_Management_System.Service.AuoMapperProfile;
+using Student_Management_System.Service.AutoMapperProfile;
 using Student_Management_System.Service.Interface;
 using Student_Management_System.Service.Services;
 using Studnet_Management_System.Model;
@@ -9,6 +9,19 @@ using Studnet_Management_System.Model.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("corsapp",
+      policy =>
+      {
+          policy.WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+      });
+});
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -40,7 +53,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("corsapp");
 app.UseAuthorization();
 
 app.MapControllers();

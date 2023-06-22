@@ -18,5 +18,6 @@ namespace Student_Management_System.Service.DTO.AddDTO
         public string Password { get; set; }
 
         public bool IsActive { get; set; } = true;
+        public int RegisterrdId { get; set; }
     }
 }

@@ -18,6 +18,10 @@ namespace Studnet_Management_System.Model
         public string Password { get; set; }
 
         public bool IsActive    { get; set; }
+
+         public int RegisterrdId { get; set; }
+
+
         [ForeignKey("roleId")]
         public int RoleId { get; set; }
 
