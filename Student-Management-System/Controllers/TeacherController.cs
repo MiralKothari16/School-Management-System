@@ -13,6 +13,7 @@ namespace Student_Management_System.Controllers
     {
         private readonly ITeacherService _teacherService;
 
+
         public TeacherController(ITeacherService teacherService) { 
             _teacherService = teacherService;
         }
@@ -27,5 +28,16 @@ namespace Student_Management_System.Controllers
         {
             return Ok(_teacherService.AddTeacher(teacher));
         }
+        [HttpPost("Attendence")]
+        public IActionResult Addattendence(AddAttendenceDTO attendence)
+        {
+            return Ok(_teacherService.AddAttendence(attendence));
+        }
+        [HttpGet("studentAttendence")]
+        public ActionResult<object> GetStudentAttendence(int id,int year)
+        {
+            return Ok(_teacherService.GetAttByTeacherorStudentId(id, year));
+        }
+
     }
 }

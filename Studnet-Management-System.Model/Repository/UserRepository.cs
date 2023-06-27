@@ -19,6 +19,12 @@ namespace Studnet_Management_System.Model.Repository
         }
         #endregion
         #region Methods
+
+        public IEnumerable<User> GetUsers()
+        {
+            // return _context.Users(x => x.IsActive == true ));
+            return _context.Users.Where(x => x.IsActive == true).ToList();
+        }
         public int AddUser(User user)
         {
             _context.Users.Add(user);

@@ -13,9 +13,13 @@ namespace Studnet_Management_System.Model.Interface
         int AddTeacher(Teacher teacher);
         bool UpdateTeacher(Teacher teacher);
         bool DeleteTeacher(Teacher teacher);
-
+       
         Teacher GetTeacherByEmail(string email);
 
         Teacher GetTeacherById(int id);
+        string GetSubject(string subj,int id);
+        string GetClass(string cls,int id);
+
+        string GetClassTeacher(string cls);
     }
 }

@@ -22,6 +22,7 @@ namespace Student_Management_System.Service.Interface
         ResponseDTO GetStudentByEmail(string Email);
         // use for authentication
 
+        ResponseDTO GetStudentAttendencesubjwise(int id, int year, string subject);
 
         // check again 
         /////GetStudentDTO IsStudentExists(TokenDTO model);

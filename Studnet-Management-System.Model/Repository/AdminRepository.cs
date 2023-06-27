@@ -48,8 +48,12 @@ namespace Studnet_Management_System.Model.Repository
 
         public bool UpdateAdmin(Admin admin)
         {
-            _context.Admins.Update(admin);
+            _context.Entry(admin).Property("Name").IsModified = true;
+            _context.Entry(admin).Property("Email").IsModified = true;
+            _context.Entry(admin).Property("Password").IsModified = true;
             return _context.SaveChanges() > 0;
+            //_context.Admins.Update(admin);
+            //return _context.SaveChanges() > 0;
         }
         #endregion
     }

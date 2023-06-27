@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Studnet_Management_System.Model.Interface;
 using Studnet_Management_System.Model;
 using Student_Management_System.Service.DTO.GetDTO;
+using Studnet_Management_System.Model.Repository;
 
 namespace Student_Management_System.Service.Services
 {
@@ -19,15 +20,22 @@ namespace Student_Management_System.Service.Services
         #region Fields
         private readonly IStudentRepository _studentRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IMailsService _mailsService;
+        private readonly ITeacherRepository _teacherRepository;
+        private readonly IAttendenceRepository _attendenceRepository;
+        private readonly IGradeBookRepository _gradeBookRepository;
         private readonly IMapper _mapper;
         #endregion
 
         #region Constructor
-        public StudentService(IUserRepository userRepository, IMapper mapper, IStudentRepository studentRepository)
+        public StudentService(IUserRepository userRepository, IMapper mapper, IStudentRepository studentRepository, IMailsService mailsService, ITeacherRepository teacherRepository, IAttendenceRepository attendenceRepository, IGradeBookRepository gradeBookRepository)
         {
             _studentRepository = studentRepository;
             _mapper = mapper;
             _userRepository = userRepository;
+            _teacherRepository = teacherRepository;
+            _attendenceRepository = attendenceRepository;
+            _gradeBookRepository = gradeBookRepository;
         }
         #endregion
         public ResponseDTO AddStudent(AddStudentDTO student)
@@ -35,35 +43,76 @@ namespace Student_Management_System.Service.Services
             var response = new ResponseDTO();
             try
             {
-                var resultEmail = _studentRepository.GetStudentByEmail(student.Email);
-                if (resultEmail != null)
+                if (student.Name != "")
                 {
-                    response.Status = 400;
-                    response.Message = "Bad Request";
-                    response.Error = "Email already exist.";
-                    return response;
-                }
-                student.IsActive = true;
-                var addstudent = _studentRepository.AddStudent(_mapper.Map<Student>(student));
-                if (addstudent > 0)
-                {
-                    var resultbyId = _studentRepository.GetStudentById(addstudent);
-                    if (resultbyId!=null)
+                    var resultEmail = _studentRepository.GetStudentByEmail(student.Email);
+                   // if (resultEmail != null)
+                    //{
+                    //    response.Status = 400;
+                    //    response.Message = "Bad Request";
+                    //    response.Error = "Email already exist.";
+                    //    return response;
+                    //}
+                    var lastrollno = _studentRepository.GetStudentrollnoClasswise(student.Class, student.DateOfAdmission);
+                    if (lastrollno != null)
                     {
-                        var role = new User
+                        student.RollNo = (Convert.ToInt32(lastrollno.RollNo) + 1).ToString();
+                    }
+                    else
+                    {
+                        student.RollNo = "1";
+                    }
+                    student.IsActive = true;
+                    //var addstudent = _studentRepository.AddStudent(_mapper.Map<Student>(student));
+                    //if (addstudent > 0)
+                    //{
+                    //    var resultbyId = _studentRepository.GetStudentById(addstudent);
+                    //    if (resultbyId != null)
+                    //    {
+                    //        var role = new User
+                    //        {
+                    //            Email = student.Email,
+                    //            Password = student.Password,
+                    //            RoleId = 3,
+                    //            IsActive = true,
+                    //            RegisterrdId = resultbyId.Id,
+
+                    //        };
+                    //        _userRepository.AddUser(role);
+                    //    }
+                    //}
+                    //send Email to candidate
+                    var mailtostudent = new MailDTO
+                    {
+                        To = student.Email,
+                        Subject = "Welcome ! ",//+ user.FirstName + " " + user.LastName ,
+                        Body = $"<p>Welcome, {student.Name} is enrolled on date : {student.DateOfAdmission} for class {student.Class}.</p>"
+                    };
+                    _mailsService.SendMail(mailtostudent);
+
+                  
+                    var teacheremail = _teacherRepository.GetClassTeacher(student.Class);
+                    if (teacheremail != null)
+                    {
+                        var mailtoteacher = new MailDTO
                         {
-                            Email = student.Email,
-                            Password = student.Password,
-                            RoleId = 3,
-                            IsActive = true,
-                            RegisterrdId = resultbyId.Id,
+                            To = teacheremail,
+                            Subject = "Allocation ! ",//+ user.FirstName + " " + user.LastName ,
+                            Body = $"<p>Hello ,Student :  {student.Name} enrolled on date : {student.DateOfAdmission} is assigned for class {student.Class}.</p>"
 
                         };
-                        _userRepository.AddUser(role);
+                        _mailsService.SendMail(mailtoteacher);
                     }
+
+                    response.Status = 204;
+                    response.Message = "Student Created";
                 }
-                response.Status = 204;
-                response.Message = "Student Created";
+                else
+                {
+                    response.Status = 404;
+                    response.Message = "Not Found.";
+                    response.Error = "Name not found.";
+                }
             }
             catch (Exception ex)
             {
@@ -105,6 +154,40 @@ namespace Student_Management_System.Service.Services
             {
                 response.Status = 500;
                 response.Message = "Internal Server Error";
+                response.Error = ex.Message;
+            }
+            return response;
+        }
+
+        public ResponseDTO GetStudentAttendencesubjwise(int Id, int cyear, string subject)
+        {
+            var response = new ResponseDTO();
+            try
+            {
+                var resultTeacherId = _studentRepository.GetStudentById(Id);
+                if (resultTeacherId == null)
+                {
+                    response.Status = 404;
+                    response.Message = "Not Found";
+                    response.Error = "Student not Found.";
+                    return response;
+                }
+                else
+                {
+                    // var result = _mapper.Map<GetTeacherDTO>(resultTeacherId);
+                    //int cyear1 = DateTime.Now.Year;
+
+                    //var attendence = _mapper.Map<List<GetAttendenceDTO>>(_attendenceRepository.GetAttByTeacherorStudentId(Id, cyear).ToList());
+                    var attendence = _attendenceRepository.GetStudentAttendencesubjwise(Id, cyear,subject);
+                    response.Status = 200;
+                    response.Data = attendence; ;
+                    response.Message = "Ok";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = "Internal server error";
                 response.Error = ex.Message;
             }
             return response;
@@ -171,7 +254,7 @@ namespace Student_Management_System.Service.Services
         }
 
         public ResponseDTO GetStudents()
-        {
+                {
             var response = new ResponseDTO();
             try
             {

@@ -1,4 +1,5 @@
 ﻿
+using Org.BouncyCastle.Ocsp;
 using Student_Management_System.Service.DTO;
 using Student_Management_System.Service.DTO.AddDTO;
 using Student_Management_System.Service.DTO.UpdateDTO;
@@ -18,6 +19,8 @@ namespace Student_Management_System.Service.Interface
         ResponseDTO DeleteAdmin(int id);
         ResponseDTO GetAdminById( int id);
         ResponseDTO GetAdminByEmail(string email);
+
+        ResponseDTO GetStudentsAttendence();
 
     }
 }

@@ -39,6 +39,13 @@ namespace Studnet_Management_System.Model.Repository
         {
             return _context.Students.FirstOrDefault(x => x.Id == id);
         }
+
+        public Student GetStudentrollnoClasswise(string cls, DateTime enrollmentdate)
+        {
+           var rollno= _context.Students.Where(x=>x.IsActive == true && x.Class == cls && x.DateOfAdmission.Year == enrollmentdate.Year).OrderByDescending(x=>x.RollNo).FirstOrDefault();
+            return rollno;
+            //&& x.DateOfAdmission.Year == enrollmentdate.Year
+        }
         #endregion
         #region Methods
         public IEnumerable<Student> GetStudents() {

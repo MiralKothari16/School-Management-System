@@ -19,8 +19,13 @@ namespace Student_Management_System.Controllers
 
         [HttpGet]
         public ActionResult<GetStudentDTO> GetStudents()
-        {
+            {
             return Ok(_studentService.GetStudents());
+        }
+        [HttpGet("GetAttendence")]
+        public ActionResult<GetStudentDTO> GetStudentsAttendence(int id, int year,string subject)
+        {
+            return Ok(_studentService.GetStudentAttendencesubjwise(id,year,subject));
         }
         [HttpPost]
         public IActionResult AddStudent(AddStudentDTO student)

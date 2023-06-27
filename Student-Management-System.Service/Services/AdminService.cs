@@ -20,15 +20,17 @@ namespace Student_Management_System.Service.Services
         #region Fields
         private readonly IAdminRepository _amdinRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IAttendenceRepository _attendenceRepository;
         private readonly IMapper _mapper;
         #endregion
 
         #region Constructor
-        public AdminService(IUserRepository userRepository, IMapper mapper, IAdminRepository adminRepository)
+        public AdminService(IUserRepository userRepository, IMapper mapper, IAdminRepository adminRepository,IAttendenceRepository attendenceRepository)
         {
             _amdinRepository = adminRepository;
             _mapper = mapper;
             _userRepository = userRepository;
+            _attendenceRepository = attendenceRepository;
         }
 
         public ResponseDTO AddAdmin(AddAdminDTO admin)
@@ -234,7 +236,28 @@ namespace Student_Management_System.Service.Services
             }
             return response;
         }
+
+        public ResponseDTO GetStudentsAttendence()
+        {
+            var response = new ResponseDTO();
+            try
+            {
+                var users =_attendenceRepository.GetStudentsAttendence();
+                response.Status = 200;
+                response.Data = users;
+                response.Message = "OK";
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = "Internal Server Error.";
+                response.Error = ex.Message;
+            }
+            return response;
+        }
         #endregion
+
+        
 
     }
 }

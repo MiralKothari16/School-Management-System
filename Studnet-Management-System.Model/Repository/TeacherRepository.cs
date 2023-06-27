@@ -1,7 +1,10 @@
-﻿using Studnet_Management_System.Model.Interface;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using Studnet_Management_System.Model.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,6 +54,23 @@ namespace Studnet_Management_System.Model.Repository
             _context.Teachers.Update(teacher);
             return _context.SaveChanges() > 0;
         }
+        public string GetSubject(string subj,int id)
+        {
+            var sub = _context.Teachers.FirstOrDefault(x => x.Id == id && x.Subject == subj );
+            if (sub != null) { return sub.Subject; } else { return null; }
+        }
+
+        public string GetClass(string clas, int id)
+        {
+            var cls = _context.Teachers.FirstOrDefault(x => x.Id == id && x.Class == clas);
+            if (cls != null) { return cls.Class; } else { return null; }
+        }
+        public string GetClassTeacher(string cls)
+        {
+            var teacheremail = _context.Teachers.FirstOrDefault(x => x.Class == cls && x.IsActive == true);
+            if(teacheremail!=null) {  return teacheremail.Email; } else { return null; }
+                }
+
         #endregion
     }
 }

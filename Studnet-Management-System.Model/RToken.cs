@@ -19,9 +19,13 @@ namespace Studnet_Management_System.Model
         [Column (TypeName ="datetime")]
         public DateTime Created_Date { get; set; }
 
-        public int User_Id { get; set; }
+        //public int User_Id { get; set; }// column in table 
+       
+       [Column("User_Id")]//  column name in sqltable.
+        public int UserId { get; set; } //use for DTO
 
-        public virtual User User { get; set; }
+        [Column("UserId")]
+        public User UserNavigation { get; set; }
 
 
     }

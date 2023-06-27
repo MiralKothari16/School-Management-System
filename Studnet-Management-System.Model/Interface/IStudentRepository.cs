@@ -16,6 +16,8 @@ namespace Studnet_Management_System.Model.Interface
 
         Student GetStudentByEmail(string email);
 
+        Student GetStudentrollnoClasswise(string cls, DateTime enrollmentdate);
+
         Student  GetStudentById(int id);   
     }
 }

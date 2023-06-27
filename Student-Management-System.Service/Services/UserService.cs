@@ -28,7 +28,26 @@ namespace Student_Management_System.Service.Services
         }
         #endregion
         #region Methods
-       // public List<string> GetUserByEmail(string email)
+        // public List<string> GetUserByEmail(string email)
+
+        public ResponseDTO GetUsers()
+        {
+            var response = new ResponseDTO();
+            try
+            {
+                var users = _mapper.Map<List<GetUserDTO>>(_userRepository.GetUsers().ToList());
+                response.Status = 200;
+                response.Data = users;
+                response.Message = "OK";
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = "Internal Server Error.";
+                response.Error = ex.Message;
+            }
+            return response;
+        }
         public ResponseDTO GetUserByEmail(string email)
         {
             var response = new ResponseDTO();
@@ -57,6 +76,19 @@ namespace Student_Management_System.Service.Services
                 response.Error = ex.Message;
             }
             return response;
+        }
+
+        public GetUserDTO IsUserExists(TokenDTO model)
+        {
+            //var user = _userRepository.GetUserByEmail(model.Email);
+            var user = _userRepository.GetUsers().FirstOrDefault(x => x.Email.ToLower() == model.Username.ToLower());// && x.Password == model.Password);
+            if (user == null || user.Password !=model.Password)// _hasherService.Hash(model.Password))
+            {
+                return null;
+                //throw new Exception("User not found");
+            }
+            else { }
+            return _mapper.Map<GetUserDTO>(user);
         }
 
         #endregion

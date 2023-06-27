@@ -24,7 +24,7 @@ namespace Student_Management_System.Service.DTO.AddDTO
         [StringLength(30, MinimumLength = 5, ErrorMessage = "Password should be minimum {2} to maximum {1} characters long.")]
         public string Password { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }= DateTime.Now;
                   
         public bool IsActive { get; set; } = true;
     }

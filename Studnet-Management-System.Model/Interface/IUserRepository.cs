@@ -8,6 +8,7 @@ namespace Studnet_Management_System.Model.Interface
 {
     public interface IUserRepository
     {
+        IEnumerable<User> GetUsers();
         int AddUser(User user);
 
         bool Updateuser(User user);

@@ -16,5 +16,9 @@ namespace Studnet_Management_System.Model
         public DbSet<User> Users { get; set; }
         public DbSet<RToken> RTokens { get; set; }
 
+        public DbSet<Attendence> Attendence { get; set; }
+
+        public DbSet<GradeBook> GradeBooks { get; set; }
+
     }
 }

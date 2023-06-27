@@ -56,6 +56,89 @@ namespace Studnet_Management_System.Model.Migrations
                     b.ToTable("Admins");
                 });
 
+            modelBuilder.Entity("Studnet_Management_System.Model.Attendence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<DateTime>("Currentdate")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("Presence")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("studentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("teacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("studentId");
+
+                    b.HasIndex("teacherId");
+
+                    b.ToTable("Attendence");
+                });
+
+            modelBuilder.Entity("Studnet_Management_System.Model.GradeBook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<DateTime>("ExamDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Marks")
+                        .HasMaxLength(5)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<int>("TotalMarks")
+                        .HasMaxLength(5)
+                        .HasColumnType("int");
+
+                    b.Property<int>("studentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("teacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("studentId");
+
+                    b.HasIndex("teacherId");
+
+                    b.ToTable("GradeBooks");
+                });
+
             modelBuilder.Entity("Studnet_Management_System.Model.RToken", b =>
                 {
                     b.Property<int>("Id")
@@ -76,10 +159,8 @@ namespace Studnet_Management_System.Model.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("User_Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("User_Id");
 
                     b.HasKey("Id");
 
@@ -255,15 +336,53 @@ namespace Studnet_Management_System.Model.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Studnet_Management_System.Model.Attendence", b =>
+                {
+                    b.HasOne("Studnet_Management_System.Model.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("studentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Studnet_Management_System.Model.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("teacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("Studnet_Management_System.Model.GradeBook", b =>
+                {
+                    b.HasOne("Studnet_Management_System.Model.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("studentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Studnet_Management_System.Model.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("teacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("Studnet_Management_System.Model.RToken", b =>
                 {
-                    b.HasOne("Studnet_Management_System.Model.User", "User")
+                    b.HasOne("Studnet_Management_System.Model.User", "UserNavigation")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("UserNavigation");
                 });
 
             modelBuilder.Entity("Studnet_Management_System.Model.Student", b =>

@@ -10,6 +10,8 @@ E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\AutoMapper
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Azure.Core.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Azure.Identity.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Humanizer.dll
+E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\MailKit.dll
+E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
@@ -38,7 +40,11 @@ E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Microsoft.
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Microsoft.OpenApi.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\MimeKit.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Mono.TextTemplating.dll
+E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\NETCore.MailKit.dll
+E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\StudentManagementSystem\Student-Management-System\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

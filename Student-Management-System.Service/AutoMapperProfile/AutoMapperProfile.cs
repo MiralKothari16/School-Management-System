@@ -33,6 +33,17 @@ namespace Student_Management_System.Service.AutoMapperProfile
             CreateMap<UpdateTeacherDTO, Teacher>();
             #endregion
 
+            #region Attendence
+            CreateMap<Attendence, GetAttendenceDTO>();
+            CreateMap<AddAttendenceDTO, Attendence>();
+            CreateMap<UpdateAttendenceDTO, Attendence>();
+            #endregion
+
+            #region GradeBook
+            CreateMap<GradeBook, GetGradeBookDTO>();
+            CreateMap<AddGradeBookDTO, GradeBook>();
+            CreateMap<UpdateGradeBookDTO, GradeBook>();
+            #endregion
 
             #region User
             CreateMap<User, GetUserDTO>();
