@@ -1,4 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
+.vs
+[Bb]in/
+[Oo]bj/
+
+*.vsidx
 
 # Compiled output
 /dist
@@ -7,6 +12,7 @@
 /bazel-out
 
 # Node
+/.angular
 /node_modules
 npm-debug.log
 yarn-error.log
