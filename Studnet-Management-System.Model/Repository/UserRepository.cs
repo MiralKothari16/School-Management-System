@@ -18,6 +18,16 @@ namespace Studnet_Management_System.Model.Repository
             _context = context;
         }
         #endregion
+
+        #region Enum
+        private enum RoleMap
+        {
+            Admin = 1,
+            Teacher = 2,
+            Student =3,
+        }
+        #endregion
+
         #region Methods
 
         public IEnumerable<User> GetUsers()
@@ -46,6 +56,17 @@ namespace Studnet_Management_System.Model.Repository
         public User GetUserByEmail(string email)
         {
             return _context.Users.FirstOrDefault(x => x.Email == email);
+        }
+
+        public List<string> GetRoles(string email)
+        {
+            var resultrole = _context.Users.Where(x => x.Email == email).ToList().OrderBy(r => r.RoleId);
+            List<string> roles = new List<string>();
+            foreach (var row in resultrole)
+            {
+                roles.Add(((RoleMap)row.RoleId).ToString());
+            }
+            return roles;
         }
         #endregion
     }

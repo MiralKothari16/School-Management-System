@@ -24,6 +24,8 @@ namespace Student_Management_System.Service.Interface
 
         ResponseDTO GetStudentAttendencesubjwise(int id, int year, string subject);
 
+       ResponseDTO GetStudentMarkssubjwise(int id, string subject, DateTime examdate);
+
         // check again 
         /////GetStudentDTO IsStudentExists(TokenDTO model);
     }

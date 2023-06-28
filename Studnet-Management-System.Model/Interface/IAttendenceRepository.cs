@@ -14,16 +14,15 @@ namespace Studnet_Management_System.Model.Interface
 
         void AddAttendence(Attendence attendence);
         bool UpdateAttendene(Attendence attendence);
-
-        IEnumerable<object> GetAttByTeacherorStudentId(int id ,int  year);
+        //teacher get attendence
+        IEnumerable<object> GetAttByTeacherId(int id ,int  year);
         // student see att subjectwies
         IEnumerable<object> GetStudentAttendencesubjwise(int Id, int year,string subject);
 
-        //Attendence GetAttByTeacherorStudentId(int id);
+        bool CheckattYearwise(int Id, int year);
+
+        bool Checkattsubjectwise(int Id, string subject);
 
         bool IsPresentToday(int teacherid,int studentId,DateTime date);
-
-
-
     }
 }

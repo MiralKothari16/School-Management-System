@@ -35,7 +35,7 @@ namespace Studnet_Management_System.Model.Repository
             //if (_context.SaveChanges() > 0) { return student.Id; } else { return 0; }
         }
         //teacher or students  can get 
-        public IEnumerable<object> GetAttByTeacherorStudentId(int id , int cyear)
+        public IEnumerable<object> GetAttByTeacherId(int id , int cyear)
         {
             var attendence = (from st in _context.Students join att in _context.Attendence
                               on st.Id equals att.studentId
@@ -94,6 +94,17 @@ namespace Studnet_Management_System.Model.Repository
         public bool IsPresentToday(int teacherid, int studentid, DateTime attendencedate)
         {
             var res = _context.Attendence.FirstOrDefault(x => x.teacherId == teacherid && x.studentId == studentid && x.Currentdate== attendencedate);
+            if (res != null) return true; else return false;
+        }
+
+        public bool CheckattYearwise(int studentid, int year)
+        {
+            var res = _context.Attendence.FirstOrDefault(x => x.studentId == studentid && x.Currentdate.Year == year);
+            if (res != null) return true; else return false;
+        }
+        public bool  Checkattsubjectwise(int studentid, string subj)
+        {
+            var res = _context.Attendence.FirstOrDefault(x => x.studentId == studentid && x.Subject== subj);
             if (res != null) return true; else return false;
         }
 

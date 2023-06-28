@@ -46,7 +46,7 @@ namespace Student_Management_System.Service.Services
                 if (student.Name != "")
                 {
                     var resultEmail = _studentRepository.GetStudentByEmail(student.Email);
-                   // if (resultEmail != null)
+                    // if (resultEmail != null)
                     //{
                     //    response.Status = 400;
                     //    response.Message = "Bad Request";
@@ -90,7 +90,7 @@ namespace Student_Management_System.Service.Services
                     };
                     _mailsService.SendMail(mailtostudent);
 
-                  
+
                     var teacheremail = _teacherRepository.GetClassTeacher(student.Class);
                     if (teacheremail != null)
                     {
@@ -158,30 +158,51 @@ namespace Student_Management_System.Service.Services
             }
             return response;
         }
-
+        //student can see
         public ResponseDTO GetStudentAttendencesubjwise(int Id, int cyear, string subject)
         {
             var response = new ResponseDTO();
             try
             {
-                var resultTeacherId = _studentRepository.GetStudentById(Id);
-                if (resultTeacherId == null)
+                var resultStudentId = _studentRepository.GetStudentById(Id);
+                if (resultStudentId == null)
                 {
                     response.Status = 404;
                     response.Message = "Not Found";
                     response.Error = "Student not Found.";
                     return response;
                 }
+                var resultyearatt = _attendenceRepository.CheckattYearwise(Id, cyear);
+                if (resultyearatt == false)
+                {
+                    response.Status = 404;
+                    response.Message = "Not Found";
+                    response.Error = "Student attendence for this year not found.";
+                    return response;
+                }
+                var resultsubatt = _attendenceRepository.Checkattsubjectwise(Id, subject);
+                if (resultsubatt == false)
+                {
+                    response.Status = 404;
+                    response.Message = "Not Found";
+                    response.Error = "Student attendence for this subject  not found.";
+                    return response;
+                }
+                //var attendence = _mapper.Map<List<GetAttendenceDTO>>(_attendenceRepository.GetAttByTeacherorStudentId(Id, cyear).ToList());
+                var attendence = _attendenceRepository.GetStudentAttendencesubjwise(Id, cyear, subject);
+                if (attendence != null)
+                {
+                    response.Status = 200;
+                    response.Data = attendence; 
+                    response.Message = "Ok";
+                    return response;
+                }
                 else
                 {
-                    // var result = _mapper.Map<GetTeacherDTO>(resultTeacherId);
-                    //int cyear1 = DateTime.Now.Year;
-
-                    //var attendence = _mapper.Map<List<GetAttendenceDTO>>(_attendenceRepository.GetAttByTeacherorStudentId(Id, cyear).ToList());
-                    var attendence = _attendenceRepository.GetStudentAttendencesubjwise(Id, cyear,subject);
-                    response.Status = 200;
-                    response.Data = attendence; ;
-                    response.Message = "Ok";
+                    response.Status = 400;
+                    response.Message = "Not found";
+                    response.Error = "Attendence is not added";
+                    return response;
                 }
             }
             catch (Exception ex)
@@ -252,9 +273,64 @@ namespace Student_Management_System.Service.Services
             }
             return response;
         }
-
-        public ResponseDTO GetStudents()
+        //student can see
+        public ResponseDTO GetStudentMarkssubjwise(int Id, string subject, DateTime examdate)
+        {
+            var response = new ResponseDTO();
+            try
+            {
+                var resultStudentId = _studentRepository.GetStudentById(Id);
+                if (resultStudentId == null)
                 {
+                    response.Status = 404;
+                    response.Message = "Not Found";
+                    response.Error = "Student not Found.";
+                    return response;
+                }
+                var resultyearatt = _gradeBookRepository.Checkmarksexamwise(Id, examdate);
+                if (resultyearatt == false)
+                {
+                    response.Status = 404;
+                    response.Message = "Not Found";
+                    response.Error = "Student marks for this examdate not found.";
+                    return response;
+                }
+                var resultsubatt = _gradeBookRepository.Checkmarkssubjectwise(Id, subject);
+                if (resultsubatt == false)
+                {
+                    response.Status = 404;
+                    response.Message = "Not Found";
+                    response.Error = "Student marks for this subject  not found.";
+                    return response;
+                }
+
+                var marksResult = _gradeBookRepository.GetStudentMakssubjwise(Id, subject, examdate);
+                if (marksResult != null)
+                {
+                    response.Status = 200;
+                    response.Data = marksResult;
+                    response.Message = "Ok";
+                    return response;
+                }
+                else
+                {
+                    response.Status = 400;
+                    response.Message = "Not Found";
+                    response.Error = "Studnet marks of this subject for this examdate is not found";
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = "Internal server error";
+                response.Error = ex.Message;
+            }
+            return response;
+        }
+        //for admin
+        public ResponseDTO GetStudents()
+        {
             var response = new ResponseDTO();
             try
             {

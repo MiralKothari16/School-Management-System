@@ -21,7 +21,6 @@ namespace Student_Management_System.Controllers
         #region fields
         private readonly IUserService _userService;
         private readonly IRTokenService _rtokenService;
-        //private readonly IUserService _userService;
         private IOptions<JWTConfigDTO> _jwtConfig;
         #endregion
         #region constructor
@@ -87,14 +86,14 @@ namespace Student_Management_System.Controllers
                 UserId = sessionModel.Id,
                 Created_Date = DateTime.Now
             };
-            //if (_rtokenService.AddToken(rToken))
-            //{
-            //    GetJWT(sessionModel, refreshToken);
-            //}
-            //else
-            //{
-            //    throw new Exception("Faild to add Token.");
-            //}
+            if (_rtokenService.AddToken(rToken))
+            {
+                GetJWT(sessionModel, refreshToken);
+            }
+            else
+            {
+                throw new Exception("Faild to add Token.");
+            }
         }
 
         private void RefreshToken(TokenDTO parameters)
@@ -134,14 +133,19 @@ namespace Student_Management_System.Controllers
         private async Task GetJWT(GetUserDTO sessionModel, string rereshToken)
         {
             var now = DateTime.UtcNow;
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub,sessionModel.Email),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, now.ToUniversalTime().ToString(CultureInfo.InvariantCulture),ClaimValueTypes.Integer64),
                 new Claim("UserId",Convert.ToString(sessionModel.Id)),
                 new Claim("UserName",Convert.ToString(sessionModel.Email))
-            };
+             };
+            var roles = _userService.GetRoles(sessionModel.Email);
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim("Role", role));
+            }
 
             var symmetricKetAsBase64 = _jwtConfig.Value.SecretKey;
             var KeyByteArray = Encoding.ASCII.GetBytes(symmetricKetAsBase64);

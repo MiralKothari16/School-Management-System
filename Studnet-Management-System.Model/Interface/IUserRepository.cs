@@ -16,5 +16,8 @@ namespace Studnet_Management_System.Model.Interface
         bool Deleteuser(User user);
 
         User GetUserByEmail(string email);
+
+        List<string> GetRoles(string email);
+    
     }
 }

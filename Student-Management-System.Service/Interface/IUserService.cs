@@ -17,5 +17,7 @@ namespace Student_Management_System.Service.Interface
         ResponseDTO GetUserByEmail(string Email);
 
         GetUserDTO IsUserExists(TokenDTO model);
+
+        List<string> GetRoles(string email);
     }
 }

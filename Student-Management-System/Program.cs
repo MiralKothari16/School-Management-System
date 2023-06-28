@@ -30,8 +30,6 @@ builder.Services.AddCors(options =>
       });
 });
 
-
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -55,6 +53,7 @@ builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<IAttendenceRepository, AttendanceRepository>();
+builder.Services.AddScoped<IGradeBookRepository, GradeBookRepository>();
 builder.Services.AddScoped<IMailsService, MailsService>();
 
 builder.Services.AddSingleton(builder.Configuration.GetSection("MailConfig").Get<EmailConfiguration>());
@@ -138,7 +137,7 @@ void ConfigureJwtAuthService(IServiceCollection services)
 
         //validate the token expire
         ValidateLifetime = true,
-
+        RoleClaimType = "Role",
         ClockSkew = TimeSpan.Zero
     };
 
@@ -151,6 +150,17 @@ void ConfigureJwtAuthService(IServiceCollection services)
     {
         o.RequireHttpsMetadata = false;
         o.SaveToken = true;
-        o.TokenValidationParameters = TokenvalidationParameter;
+        o.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidIssuer = audienceConfig["Issuer"],
+            ValidateAudience = false,
+            ValidAudience = audienceConfig["Audience"],
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = signingKey,
+            RoleClaimType = "Role",
+            ClockSkew = TimeSpan.Zero
+        };
     });
 }

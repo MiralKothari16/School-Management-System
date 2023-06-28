@@ -91,6 +91,12 @@ namespace Student_Management_System.Service.Services
             return _mapper.Map<GetUserDTO>(user);
         }
 
+        public List<string> GetRoles(string email)
+        {
+            return _userRepository.GetRoles(email);
+        }
+
+
         #endregion
     }
 }

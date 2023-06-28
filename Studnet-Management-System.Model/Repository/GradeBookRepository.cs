@@ -35,7 +35,7 @@ namespace Studnet_Management_System.Model.Repository
             var result = (from st in _context.Students
                               join grd in _context.GradeBooks
                               on st.Id equals grd.studentId
-                              where grd.teacherId.Equals(id) && grd.ExamDate.Year == cyear
+                              where grd.teacherId==id && grd.ExamDate.Year == cyear
                               select new
                               {
                                   Id = st.Id,
@@ -51,12 +51,12 @@ namespace Studnet_Management_System.Model.Repository
         }
 
       
-        public IEnumerable<object> GetStudentMakssubjwise(int Id, string subject, string cls)
+        public IEnumerable<object> GetStudentMakssubjwise(int Id, string subject,DateTime examdate)
         {
             var result = (from st in _context.Students
                               join grd in _context.GradeBooks
                                 on st.Id equals grd.studentId
-                              where grd.studentId.Equals(Id) && grd.Class == cls && grd.Subject == subject
+                              where grd.studentId==Id  && grd.Subject == subject && grd.ExamDate==examdate
                               select new
                               {
                                   Id = st.Id,
@@ -94,6 +94,12 @@ namespace Studnet_Management_System.Model.Repository
             if (result.Count > 0) { return result; } else { return null; }
         }
 
+        public bool Checkmarkssubjectwise(int studentid, string subj)
+        {
+            var res = _context.GradeBooks.FirstOrDefault(x => x.studentId == studentid && x.Subject == subj);
+            if (res != null) return true; else return false;
+        }
+
         //check todays attendence should not be added twice
         public bool IsMarksAdded(int teacherid, int studentid, DateTime examdate,string sub)
         {
@@ -106,6 +112,12 @@ namespace Studnet_Management_System.Model.Repository
         {
             _context.GradeBooks.Update(gradebook);
             return _context.SaveChanges() > 0;
+        }
+
+        public bool Checkmarksexamwise(int studentid, DateTime examdt)
+        {
+            var res = _context.GradeBooks.FirstOrDefault(x => x.studentId == studentid && x.ExamDate == examdt);
+            if (res != null) return true; else return false;
         }
         #endregion
     }

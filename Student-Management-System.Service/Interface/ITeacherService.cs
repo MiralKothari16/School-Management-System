@@ -26,7 +26,7 @@ namespace Student_Management_System.Service.Interface
         ResponseDTO AddAttendence(AddAttendenceDTO attendence);
         ResponseDTO UpdateAttendence(UpdateAttendenceDTO attendence);
         
-        ResponseDTO GetAttByTeacherorStudentId(int Id,int cyear);
+        ResponseDTO GetAttByTeacherId(int Id,int cyear);
 
         ResponseDTO AddMarks(AddGradeBookDTO gradeBook);
         ResponseDTO UpdateMarks(UpdateGradeBookDTO gradeBook);

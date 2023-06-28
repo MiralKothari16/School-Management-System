@@ -15,11 +15,13 @@ namespace Studnet_Management_System.Model.Interface
         bool UpdateMarks(GradeBook  gradebook);
 
         //for teacher
-        IEnumerable<object> GetMarksByTeacherId(int id, int year);
+        IEnumerable<object> GetMarksByTeacherId(int id , int year);
         // student see att subjectwies
-        IEnumerable<object> GetStudentMakssubjwise(int Id, string subject,string cls);
+        IEnumerable<object> GetStudentMakssubjwise(int Id, string subject,DateTime examdate);
 
-        //Attendence GetAttByTeacherorStudentId(int id);
+        bool Checkmarksexamwise(int Id, DateTime examdt);
+
+        bool Checkmarkssubjectwise(int Id, string subject);
 
         bool IsMarksAdded(int teacherid, int studentId, DateTime date,string subject);
     }

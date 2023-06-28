@@ -360,8 +360,8 @@ namespace Student_Management_System.Service.Services
             }
             return response;
         }
-
-        public ResponseDTO GetAttByTeacherorStudentId(int Id, int cyear)
+        //teacher get attendence
+        public ResponseDTO GetAttByTeacherId(int Id, int cyear)
         {
             var response = new ResponseDTO();
             try
@@ -376,14 +376,22 @@ namespace Student_Management_System.Service.Services
                 }
                 else
                 {
-                    // var result = _mapper.Map<GetTeacherDTO>(resultTeacherId);
-                   //int cyear1 = DateTime.Now.Year;
-
                     //var attendence = _mapper.Map<List<GetAttendenceDTO>>(_attendenceRepository.GetAttByTeacherorStudentId(Id, cyear).ToList());
-                    var attendence = _attendenceRepository.GetAttByTeacherorStudentId(Id, cyear);
-                    response.Status = 200;
-                    response.Data = attendence; ;
-                    response.Message = "Ok";
+                    var attendence = _attendenceRepository.GetAttByTeacherId(Id, cyear);
+                    if (attendence != null)
+                    {
+                        response.Status = 200;
+                        response.Data = attendence; 
+                        response.Message = "Ok";
+                        return response;
+                    }
+                    else
+                    {
+                        response.Status = 400;
+                        response.Message = "Not found";
+                        response.Error = "Attendence is not added";
+                        return response;
+                    }
                 }
             }
             catch (Exception ex)
@@ -502,7 +510,7 @@ namespace Student_Management_System.Service.Services
             return response;
         }
 
-        public ResponseDTO GetMarksTeacherIdwise(int Id, int cyear)
+        public ResponseDTO GetMarksTeacherIdwise(int Id, int cyear) 
         {
             var response = new ResponseDTO();
             try
@@ -518,10 +526,21 @@ namespace Student_Management_System.Service.Services
                 else
                 {
                     //var attendence = _mapper.Map<List<GetAttendenceDTO>>(_attendenceRepository.GetAttByTeacherorStudentId(Id, cyear).ToList());
-                    var attendence = _attendenceRepository.GetAttByTeacherorStudentId(Id, cyear);
-                    response.Status = 200;
-                    response.Data = attendence; ;
-                    response.Message = "Ok";
+                    var resultmarks = _gradeBookRepository.GetMarksByTeacherId(Id, cyear);
+                    if (resultmarks != null)
+                    {
+                        response.Status = 200;
+                        response.Data = resultmarks; ;
+                        response.Message = "Ok";
+                        return response;
+                    }
+                    else
+                    {
+                        response.Status = 400;
+                        response.Message = "Not found";
+                        response.Error = "Marks is not added";
+                        return response;
+                    }
                 }
             }
             catch (Exception ex)
