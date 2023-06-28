@@ -1,0 +1,39 @@
+<h2> Student</h2>
+
+<br>
+<!-- <app-loading></app-loading> -->
+
+<div class="container">
+
+    <!-- <div *ngIf="isLoading">
+        <p>Loading...</p>
+    </div>
+    <ng-template #error>
+        <p>There is some error.</p>
+    </ng-template> -->
+
+    <button class="btn btn-primary" (click)="OpenAdminForm()">Add Admin</button> &nbsp;
+    <!-- <button class="btn btn-danger" (click)="getProduct()">Get Product</button> -->
+
+    <div>
+    </div>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let Admin of admin">
+                <tr>
+                    <td>{{Admin.name}}</td>
+                    <td>{{Admin.email}}</td>
+                    <td><button class="btn btn-primary" (click)="editadmin(Admin)">Edit</button>&nbsp;
+                        <!-- <button class="btn btn-danger" (click)="DeleteStudent(Student.id)">Delete</button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

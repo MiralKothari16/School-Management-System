@@ -1,0 +1,48 @@
+<br>
+<!-- <app-loading></app-loading> -->
+
+<div class="container">
+
+    <div *ngIf="isLoading">
+        <p>Loading...</p>
+    </div>
+    <ng-template #error>
+        <p>There is some error.</p>
+    </ng-template>
+
+    <button class="btn btn-primary" (click)="OpenteacherForm()">Add Teacher</button> &nbsp;
+    <!-- <button class="btn btn-danger" (click)="getProduct()">Get Product</button> -->
+
+    <div>
+    </div>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Class</th>
+                    <th>subject</th>
+                    <th>DOB</th>
+                    <th>Adminssion Date</th>
+                    <th>Qualification</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let teacher of teachers">
+                <tr>
+                    <td>{{teacher.name}}</td>
+                    <td>{{teacher.email}}</td>
+                    <td>{{teacher.class}}</td>
+                    <td>{{teacher.subject}}</td>
+                    <td>{{teacher.dataofbirth}}</td>
+                    <td>{{teacher.enrollmentdate }}</td>
+                    <td>{{teacher.qualification}}</td>
+
+                    <td><button class="btn btn-primary" (click)="editTeacher(teacher)">Edit</button>&nbsp;
+                        <button class="btn btn-danger" (click)="ViewTeacher(teacher.id)">View Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

@@ -1,0 +1,86 @@
+<div class="container">
+    <br>
+    <h2>Student Registration Form</h2>
+    <br><br>
+    <div class="row">
+        <div class="col-sm-8">
+            <!-- <form class="form-horizontal" [formGroup]="studentform" (ngSubmit)="onSubmit()"> -->
+            <form class="form-horizontal" [formGroup]="studentform" (ngSubmit)="signUp()">
+                <div class="form-group">
+                    <!-- <label class="control-label col-sm-2" for="name">Name:</label> -->
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" placeholder="Enter Name"
+                            formControlName="name" />
+                        <span class="color-red"
+                            *ngIf="studentform.get('name')?.invalid && studentform.get('name')?.touched">Please
+                            enter a valid Name</span>
+                        <!-- <button (click)="test()">Test</button> -->
+                    </div><br>
+                </div>
+                <div class="form-group">
+                    <!-- <label class="control-label col-sm-2" for="RollNo">Roll No:</label> -->
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="rollNo" placeholder="Enter RollNo"
+                            formControlName="rollNo" />
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" placeholder="Enter Email"
+                            formControlName="email" />
+                    </div>
+                </div><br>
+                <div class=" form-group">
+                    <!-- <label class="control-label col-sm-2" for="Password">Password</label> -->
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password" placeholder="Enter Password"
+                            formControlName="password">
+                        <span class="color-red"
+                            *ngIf="!studentform.get('password')!.valid && studentform.get('password')!.touched"></span>
+                    </div><br>
+                </div>
+                <div class="form-group">
+                    <!-- <label class="control-label col-sm-2" for="Class">Class:</label> -->
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="class" placeholder="Enter Class"
+                            formControlName="class" />
+                        <span class="color-red"
+                            *ngIf="studentform.get('class')?.invalid && studentform.get('class')?.touched">Please
+                            enter a valid Class</span>
+
+                    </div>
+                </div><br>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">Data Of Birth:</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="dateofBirth" formControlName="dateofBirth" />
+                        <span class="color-red"
+                            *ngIf="studentform.get('dateofBirth')?.invalid && studentform.get('dateofBirth')?.touched">Please
+                            enter Birthdate</span>
+
+                    </div>
+                </div><br>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="adminssionDate">Adminssion Date:</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="dateOfAdmission"
+                            formControlName="dateOfAdmission" />
+                        <span class="color-red"
+                            *ngIf="studentform.get('dateOfAdmission')?.invalid && studentform.get('dateOfAdmission')?.touched">
+                            Admission Date should not be blank </span>
+
+                    </div>
+                </div><br>
+                <div class="form-group">
+                    <div class="col-sm-offset col-sm-5">
+                        <button class="btn btn-primary" type="submit">Submit</button>&nbsp;
+
+                        <button class="btn btn-primary" type="button" (click)="reset()">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
