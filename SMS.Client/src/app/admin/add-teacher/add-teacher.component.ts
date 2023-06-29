@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Iteacher } from 'src/app/Interface/iteacher';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TeacherService } from 'src/app/Service/teacher.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-teacher',
@@ -44,6 +45,7 @@ export class AddTeacherComponent {
     });
   }
   AddTeacher(teacherform: any) {
+
     console.log(this.teacherform.value);
     this.teacherservice.addTeacher(teacherform.vale).subscribe(
       response => {
