@@ -17,7 +17,8 @@ const routes: Routes = [
     path: 'layout', component: LayoutComponent, canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'admin-dashboard', loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule), }
+      { path: 'admin-dashboard', loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule), },
+      { path: 'teacher-dashboard', loadChildren: () => import('./teacher/teacher.module').then((m) => m.TeacherModule), }
     ]
   },
   //   { path: '', redirectTo: 'login', pathMatch: 'full' },// localhost/4200

@@ -20,6 +20,9 @@ import { HomeComponent } from './home/home.component';
 import { PagenotfoundComponentComponent } from './pagenotfound-component/pagenotfound-component.component';
 import { AdminModule } from './admin/admin.module';
 import { CommonModule } from '@angular/common';
+import { TeacherModule } from './teacher/teacher.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -46,6 +49,9 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     HttpClientModule,
     AdminModule,
+    TeacherModule,
+    NoopAnimationsModule,
+    MatDialogModule
     //  CommonModule
 
 

@@ -58,15 +58,17 @@ namespace Student_Management_System.Controllers
                     throw new Exception("Invalid Grant_Type");
             }
 
-            //if (string.IsNullOrEmpty(parameters.Username)){
-                
-            //    throw new Exception("Enter Username."); }
+            //if (string.IsNullOrEmpty(parameters.Username))
+            //{
+
+            //    throw new Exception("Enter Username.");
+            //}
             //else if (string.IsNullOrEmpty(parameters.Username) && string.IsNullOrEmpty(parameters.Password))
-            //        throw new Exception("Enter Username and Password.");
+            //    throw new Exception("Enter Username and Password.");
             //else if (!string.IsNullOrEmpty(parameters.Username) && !string.IsNullOrEmpty(parameters.Password))
-            //      Login(parameters);
+            //    Login(parameters);
             //else if (string.IsNullOrEmpty(parameters.Username) && parameters.Password == "")
-            //        throw new Exception("Enter Password.");
+            //    throw new Exception("Enter Password.");
             //else { RefreshToken(parameters); }
         }
 

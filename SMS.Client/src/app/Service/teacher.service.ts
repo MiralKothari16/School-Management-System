@@ -9,18 +9,26 @@ import { environment as env } from 'src/environments/environment.development';
 })
 export class TeacherService {
 
+  private url = `${env.baseUrl}/Teacher`;
+
   constructor(private http: HttpClient) { }
 
+
   getTeachers(): Observable<any> {
-    const url = `${env.baseUrl}/Teacher`; // Append the parameters to the URL
-    return this.http.get<any[]>(url);
+    //const url = `${env.baseUrl}/Teacher`; // Append the parameters to the URL
+    return this.http.get<any[]>(this.url);
   }
-  //https://localhost:7105/api/Student/GetStudentById?id=13
-  getTeacherById(id: number) {
-    //const url = `${env.baseUrl}/Student/GetStudentById/${id}`;
-    const url = `${env.baseUrl}/Teacher/GetTeacherById`;
-    const params = { id: id.toString() };
-    return this.http.get(url, { params });
+  //https://localhost:7105/api/Teacher
+  public addTeacher(teacher: any): Observable<any> {
+    return this.http.post(this.url, teacher);
   }
 
+  //'https://localhost:7105/api/Teacher/id?id=2' \
+  // const url = `${base_url}?${params.toString()}`;
+  getTeacherById(id: number) {
+    //const url = `${env.baseUrl}/Teacher/id?id=`;
+    const url = `${env.baseUrl}/Teacher/id`;
+    const params = { id: id };
+    return this.http.get(url, { params });
+  }
 }

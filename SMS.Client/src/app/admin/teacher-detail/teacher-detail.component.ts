@@ -10,21 +10,22 @@ import { TeacherService } from 'src/app/Service/teacher.service';
   styleUrls: ['./teacher-detail.component.scss']
 })
 export class TeacherDetailComponent implements OnInit {
-  public teachers !: Iteacher[];
+  public teachers !: Iteacher;
   id !: number;
   constructor(private teacherserice: TeacherService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.id = +params['id'];
-
+    this.route.params.subscribe(params => {
+      //console.log("params ", params);
+      this.id = params['id'];
       if (this.id) {
+        //console.log("test", this.id);
         this.getteacherdettail();
+
       }
     })
   }
   public getteacherdettail() {
-    const id = this.getteacherdettail
     this.teacherserice.getTeacherById(this.id).subscribe(
       (res: any) => { this.teachers = res; },
       (error: any) => { console.error('Error in fetching data', error); }

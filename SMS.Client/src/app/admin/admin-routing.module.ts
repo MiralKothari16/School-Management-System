@@ -8,14 +8,12 @@ import { AdminmanagementComponent } from './adminmanagement/adminmanagement.comp
 import { TeacherDetailComponent } from './teacher-detail/teacher-detail.component';
 
 const adminroutes: Routes = [
-  {
-    path: '', component: HeaderComponent
-  },
+  { path: '', component: HeaderComponent },
   { path: '', redirectTo: 'StudentManagement', pathMatch: 'full' },
   { path: 'StudentManagement', component: StudentmanagementComponent },
   { path: 'TeacherManagement', component: TeachermanagementComponent },
   { path: 'TeacherDetail/:id', component: TeacherDetailComponent },
-  // { path: 'AdminManagement', component: AdminmanagementComponent }
+  { path: 'AdminManagement', component: AdminmanagementComponent }
 
 
 

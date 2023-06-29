@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { StudentmanagementComponent } from './studentmanagement/studentmanagement.component';
 import { TeacherDetailComponent } from './teacher-detail/teacher-detail.component';
+import { AddTeacherComponent } from './add-teacher/add-teacher.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -20,14 +22,15 @@ import { TeacherDetailComponent } from './teacher-detail/teacher-detail.componen
     AdminmanagementComponent,
     StudentmanagementComponent,
     HeaderComponent,
-    TeacherDetailComponent
+    TeacherDetailComponent,
+    AddTeacherComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   exports: [
     HeaderComponent,]

@@ -34,7 +34,8 @@ namespace Student_Management_System.Controllers
         {
             return Ok(_studentService.GetStudentAttendencesubjwise(id,year,subject));
         }
-        [HttpGet ("GetStudentById")]
+        [HttpGet ("id")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<GetStudentDTO> GetStudentById(int id)
         {
             return Ok(_studentService.GetStudentById(id));

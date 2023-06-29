@@ -44,14 +44,14 @@ export class AuthenticationService {
     return this.http
       .post<any>(`${this.endpoint}Token/Auth`, user)
       .subscribe((res: any) => {
-        localStorage.setItem('access_token', JSON.stringify(res));
+        localStorage.setItem('access_token', JSON.stringify(res.access_token));
         alert("Login successfull");
         this.router.navigate(['layout']);
 
       });
   }
   getToken() {
-    return localStorage.getItem('access_token');
+    return JSON.parse(localStorage.getItem('access_token') as string);
   }
   isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');

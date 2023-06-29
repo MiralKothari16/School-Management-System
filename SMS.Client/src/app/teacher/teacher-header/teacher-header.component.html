@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" routerLink="teacher-dashboard/Attendence">Attendence</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="teacher-dashboard/Gradebook" routerLinkActive="active">
+                    Gradebook</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="home" routerLinkActive="active">Home</a>
+            </li>
+        </ul>
+        <!-- <form>
+            <input type=" search" placeholder="search" name="search" [(ngModel)]="filteredtext"
+                    class="form-control bg-white border=none" />
+                </form> -->
+    </div>
+    <div class="col-sm-1">
+        <a class=" navbar-brand" routerLink="/login">Log Out</a>
+    </div>
+</nav>
+<router-outlet></router-outlet>
