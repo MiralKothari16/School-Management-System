@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { PagenotfoundComponentComponent } from './pagenotfound-component/pagenotfound-component.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   //   { path: 'teacherregistration', component: TeacherregistrationComponent },
   //   { path: 'studentregistration', component: StudentRegistrationComponent },
   //   {
@@ -21,8 +21,8 @@ const routes: Routes = [
       { path: 'teacher-dashboard', loadChildren: () => import('./teacher/teacher.module').then((m) => m.TeacherModule), }
     ]
   },
-  //   { path: '', redirectTo: 'login', pathMatch: 'full' },// localhost/4200
-  //   { path: '**', component: PagenotfoundComponentComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },// localhost/4200
+  //{ path: '**', component: PagenotfoundComponentComponent },
 ];
 
 @NgModule({

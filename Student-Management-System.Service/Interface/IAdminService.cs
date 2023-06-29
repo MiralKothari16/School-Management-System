@@ -21,6 +21,7 @@ namespace Student_Management_System.Service.Interface
         ResponseDTO GetAdminByEmail(string email);
 
         ResponseDTO GetStudentsAttendence();
+        ResponseDTO GetStudentMarks();
 
     }
 }

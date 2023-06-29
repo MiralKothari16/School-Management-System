@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment.development';
@@ -20,7 +20,8 @@ export class TeacherService {
   }
   //https://localhost:7105/api/Teacher
   public addTeacher(teacher: any): Observable<any> {
-    return this.http.post(this.url, teacher);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(this.url, teacher, { headers });
   }
 
   //'https://localhost:7105/api/Teacher/id?id=2' \

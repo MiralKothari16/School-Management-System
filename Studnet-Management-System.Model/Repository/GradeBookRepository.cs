@@ -107,7 +107,7 @@ namespace Studnet_Management_System.Model.Repository
             if (res != null) return true; else return false;
         }
 
-        //admin will update attendence
+        //admin will update Marks
         public bool UpdateMarks(GradeBook gradebook)
         {
             _context.GradeBooks.Update(gradebook);

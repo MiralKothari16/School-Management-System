@@ -31,5 +31,7 @@ namespace Student_Management_System.Service.Interface
         ResponseDTO AddMarks(AddGradeBookDTO gradeBook);
         ResponseDTO UpdateMarks(UpdateGradeBookDTO gradeBook);
         ResponseDTO GetMarksTeacherIdwise(int Id,int cyear);
+
+        ResponseDTO getstudnetteacheridwise(int id, int admissionyear);
     }
 }

@@ -18,6 +18,7 @@ namespace Studnet_Management_System.Model.Interface
 
         Student GetStudentrollnoClasswise(string cls, DateTime enrollmentdate);
 
+        IEnumerable<object> GetStudentbyTeacherIdwise(int teacherid, int year);
         Student  GetStudentById(int id);   
     }
 }

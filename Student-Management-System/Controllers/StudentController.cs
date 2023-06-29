@@ -29,8 +29,8 @@ namespace Student_Management_System.Controllers
             return Ok(_studentService.GetStudents());
         }
       
-        [HttpGet("GetAttendence")]
-        public ActionResult<GetStudentDTO> GetStudentsAttendence(int id, int year,string subject)
+        [HttpGet("Attendence")]
+        public ActionResult<object> GetStudentsAttendence(int id, int year,string subject)
         {
             return Ok(_studentService.GetStudentAttendencesubjwise(id,year,subject));
         }
@@ -41,8 +41,8 @@ namespace Student_Management_System.Controllers
             return Ok(_studentService.GetStudentById(id));
         }
 
-        [HttpGet("GetMarks")]
-        public ActionResult<GetStudentDTO> GetStudentsMarks(int id,string subject,DateTime examdate)
+        [HttpGet("Marks")]
+        public ActionResult<object> GetStudentsMarks(int id,string subject,DateTime examdate)
         {
             return Ok(_studentService.GetStudentMarkssubjwise(id, subject,examdate));
         }

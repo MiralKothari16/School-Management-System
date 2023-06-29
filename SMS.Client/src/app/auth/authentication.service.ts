@@ -60,7 +60,7 @@ export class AuthenticationService {
   doLogout() {
     let removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
-      this.router.navigate(['login']);
+      this.router.navigate(['/login']);
     }
   }
 }

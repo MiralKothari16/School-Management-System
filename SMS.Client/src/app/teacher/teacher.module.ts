@@ -8,6 +8,7 @@ import { AttndenceDashboardComponent } from './attndence-dashboard/attndence-das
 import { GradebookDashboardComponent } from './gradebook-dashboard/gradebook-dashboard.component';
 import { RecordattendenceComponent } from './recordattendence/recordattendence.component';
 import { AttendencehistoryComponent } from './attendencehistory/attendencehistory.component';
+import { RecordAttendenceComponent } from './record-attendence/record-attendence.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AttendencehistoryComponent } from './attendencehistory/attendencehistor
     AttndenceDashboardComponent,
     GradebookDashboardComponent,
     RecordattendenceComponent,
-    AttendencehistoryComponent
+    AttendencehistoryComponent,
+    RecordAttendenceComponent
   ],
   imports: [
     CommonModule,

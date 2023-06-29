@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Student_Management_System.Service.DTO.AddDTO;
 using Student_Management_System.Service.DTO.GetDTO;
 using Student_Management_System.Service.DTO.UpdateDTO;
 using Student_Management_System.Service.Interface;
+using Student_Management_System.Service.Services;
 using Studnet_Management_System.Model;
 using System.Security.Claims;
 
 namespace Student_Management_System.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class AdminController : ControllerBase
     {
@@ -24,10 +27,24 @@ namespace Student_Management_System.Controllers
         {
             return Ok(_adminService.GetAdmins());
         }
+
+        [HttpGet("id")]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult<GetAdminDTO> GetAdminById(int id)
+        {
+            return Ok(_adminService.GetAdminById(id));
+        }
+
         [HttpGet("Attendence")]
-        public ActionResult<GetAdminDTO> GetStudentsAttendence()
+        public ActionResult<object> GetStudentsAttendence()
         {
             return Ok(_adminService.GetStudentsAttendence());
+        }
+
+        [HttpGet("Marks")]
+        public ActionResult<object> GetStudentsMarks()
+        {
+            return Ok(_adminService.GetStudentMarks());
         }
         [HttpPost]
         public IActionResult AddAdmin(AddAdminDTO admin)

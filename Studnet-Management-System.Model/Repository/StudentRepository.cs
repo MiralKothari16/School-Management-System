@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,24 @@ namespace Studnet_Management_System.Model.Repository
             return _context.Students.FirstOrDefault(x => x.Id == id);
         }
 
+        public IEnumerable<object> GetStudentbyTeacherIdwise(int teacherid, int cyear)
+        {
+            var student = (from st in _context.Students
+                           join t in _context.Teachers
+                         on st.Class equals t.Class
+                           where st.DateOfAdmission.Year == cyear && t.Id == teacherid
+                           select new
+                           {
+                               Id = st.Id,
+                               Name = st.Name,
+                               Date = DateTime.Now,
+                               // teacherId = att.teacherId,
+                               subject = t.Subject,
+                               //presence = att.Presence,
+                           }).ToList();
+            if (student.Count > 0) { return student; } else { return null; }
+        }
+
         public Student GetStudentrollnoClasswise(string cls, DateTime enrollmentdate)
         {
            var rollno= _context.Students.Where(x=>x.IsActive == true && x.Class == cls && x.DateOfAdmission.Year == enrollmentdate.Year).OrderByDescending(x=>x.RollNo).FirstOrDefault();
@@ -57,6 +76,8 @@ namespace Studnet_Management_System.Model.Repository
            _context.Students.Update(student);
             return _context.SaveChanges() > 0;
         }
+
+       
         #endregion
 
 

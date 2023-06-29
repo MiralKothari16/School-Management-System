@@ -11,6 +11,7 @@ using Studnet_Management_System.Model.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,17 +24,19 @@ namespace Student_Management_System.Service.Services
         private readonly IUserRepository _userRepository;
         private readonly IAttendenceRepository _attendenceRepository;
         private readonly IGradeBookRepository _gradeBookRepository;
+        private readonly IStudentRepository _studentRepository;
         private readonly IMapper _mapper;
         #endregion
 
         #region Constructor
-        public TeacherService(IUserRepository userRepository, IMapper mapper, ITeacherRepository teacherRepository, IAttendenceRepository attendenceRepository, IGradeBookRepository gradeBookRepository)
+        public TeacherService(IUserRepository userRepository, IMapper mapper, ITeacherRepository teacherRepository, IAttendenceRepository attendenceRepository, IGradeBookRepository gradeBookRepository, IStudentRepository studentRepository)
         {
             _teacherRepository = teacherRepository;
             _mapper = mapper;
             _userRepository = userRepository;
             _attendenceRepository = attendenceRepository;
             _gradeBookRepository = gradeBookRepository;
+            _studentRepository = studentRepository;
         }
 
         public ResponseDTO AddTeacher(AddTeacherDTO teacher)
@@ -78,7 +81,7 @@ namespace Student_Management_System.Service.Services
                 else
                 {
                     response.Status = 201;
-                   // response.Message = "Bad Request";
+                    // response.Message = "Bad Request";
                     response.Error = "Can insert only 12 teachers";
                     return response;
 
@@ -132,7 +135,7 @@ namespace Student_Management_System.Service.Services
                 }
                 _attendenceRepository.AddAttendence(_mapper.Map<Attendence>(attendence));
                 response.Status = 201;
-                 response.Message = "Attendence is added";
+                response.Message = "Attendence is added";
             }
             catch (Exception ex)
             {
@@ -297,6 +300,9 @@ namespace Student_Management_System.Service.Services
             return response;
         }
 
+       
+
+
         public ResponseDTO GetTeachers()
         {
             var response = new ResponseDTO();
@@ -381,7 +387,7 @@ namespace Student_Management_System.Service.Services
                     if (attendence != null)
                     {
                         response.Status = 200;
-                        response.Data = attendence; 
+                        response.Data = attendence;
                         response.Message = "Ok";
                         return response;
                     }
@@ -432,7 +438,7 @@ namespace Student_Management_System.Service.Services
                     response.Error = "This Class is not allocated to this teacher";
                     return response;
                 }
-                var presence = _gradeBookRepository.IsMarksAdded(gradeBook.teacherId, gradeBook.studentId, gradeBook.ExamDate,gradeBook.Subject);
+                var presence = _gradeBookRepository.IsMarksAdded(gradeBook.teacherId, gradeBook.studentId, gradeBook.ExamDate, gradeBook.Subject);
                 if (presence == true)
                 {
                     response.Status = 400;
@@ -482,7 +488,7 @@ namespace Student_Management_System.Service.Services
                     response.Error = "This Class is not allocated to this teacher";
                     return response;
                 }
-                var presence = _gradeBookRepository.IsMarksAdded(gradeBook.teacherId, gradeBook.studentId,gradeBook.ExamDate,gradeBook.Subject);
+                var presence = _gradeBookRepository.IsMarksAdded(gradeBook.teacherId, gradeBook.studentId, gradeBook.ExamDate, gradeBook.Subject);
                 if (presence != true)
                 {
                     response.Status = 400;
@@ -510,7 +516,7 @@ namespace Student_Management_System.Service.Services
             return response;
         }
 
-        public ResponseDTO GetMarksTeacherIdwise(int Id, int cyear) 
+        public ResponseDTO GetMarksTeacherIdwise(int Id, int cyear)
         {
             var response = new ResponseDTO();
             try
@@ -547,6 +553,48 @@ namespace Student_Management_System.Service.Services
             {
                 response.Status = 500;
                 response.Message = "Internal server error";
+                response.Error = ex.Message;
+            }
+            return response;
+        }
+
+        public ResponseDTO getstudnetteacheridwise(int Id, int admissionyear)
+        {
+            var response = new ResponseDTO();
+            try
+            {
+                var resultTeacherId = _teacherRepository.GetTeacherById(Id);
+                if (resultTeacherId == null)
+                {
+                    response.Status = 404;
+                    response.Message = "Not Found";
+                    response.Error = "Teacher not Found.";
+                    return response;
+                }
+                else
+                {
+                    //var attendence = _mapper.Map<List<GetAttendenceDTO>>(_attendenceRepository.GetAttByTeacherorStudentId(Id, cyear).ToList());
+                    var attendence = _studentRepository.GetStudentbyTeacherIdwise(Id, DateTime.Now.Year);
+                    if (attendence != null)
+                    {
+                        response.Status = 200;
+                        response.Data = attendence;
+                        response.Message = "Ok";
+                        return response;
+                    }
+                    else
+                    {
+                        response.Status = 400;
+                        response.Message = "Not found";
+                        response.Error = "Attendence is not added";
+                        return response;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = "Internal Server Error.";
                 response.Error = ex.Message;
             }
             return response;

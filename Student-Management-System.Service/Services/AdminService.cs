@@ -21,16 +21,18 @@ namespace Student_Management_System.Service.Services
         private readonly IAdminRepository _amdinRepository;
         private readonly IUserRepository _userRepository;
         private readonly IAttendenceRepository _attendenceRepository;
+        private readonly IGradeBookRepository _gradebookRepository;
         private readonly IMapper _mapper;
         #endregion
 
         #region Constructor
-        public AdminService(IUserRepository userRepository, IMapper mapper, IAdminRepository adminRepository,IAttendenceRepository attendenceRepository)
+        public AdminService(IUserRepository userRepository, IMapper mapper, IAdminRepository adminRepository,IAttendenceRepository attendenceRepository, IGradeBookRepository gradebookRepository)
         {
             _amdinRepository = adminRepository;
             _mapper = mapper;
             _userRepository = userRepository;
             _attendenceRepository = attendenceRepository;
+            _gradebookRepository = gradebookRepository;
         }
 
         public ResponseDTO AddAdmin(AddAdminDTO admin)
@@ -242,9 +244,9 @@ namespace Student_Management_System.Service.Services
             var response = new ResponseDTO();
             try
             {
-                var users =_attendenceRepository.GetStudentsAttendence();
+                var att =_attendenceRepository.GetStudentsAttendence();
                 response.Status = 200;
-                response.Data = users;
+                response.Data = att;
                 response.Message = "OK";
             }
             catch (Exception ex)
@@ -255,9 +257,29 @@ namespace Student_Management_System.Service.Services
             }
             return response;
         }
+
+        public ResponseDTO GetStudentMarks()
+        {
+            var response = new ResponseDTO();
+            try
+            {
+                var marks = _gradebookRepository.GetStudentsMarks();
+                response.Status = 200;
+                response.Data = marks;
+                response.Message = "OK";
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = "Internal Server Error.";
+                response.Error = ex.Message;
+            }
+            return response;
+
+        }
         #endregion
 
-        
+
 
     }
 }

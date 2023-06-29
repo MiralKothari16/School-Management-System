@@ -29,11 +29,24 @@ namespace Student_Management_System.Controllers
         
         [HttpGet("id")]
         //[Authorize(Roles = "Admin")]
-        public ActionResult<GetStudentDTO> GetTeacherById(int id)
+        public ActionResult<GetTeacherDTO> GetTeacherById(int id)
         {
             return Ok(_teacherService.GetTeacherById(id));
         }
-        
+
+        [HttpGet("Attendence")]
+        public ActionResult<object> GetStudentAttendence(int id, int year)
+        {
+            return Ok(_teacherService.GetAttByTeacherId(id, year));
+        }
+
+        [HttpGet("Mrk")]
+        public ActionResult<object> GetStudentMarks(int id, int year)
+        {
+            return Ok(_teacherService.GetMarksTeacherIdwise(id, year));
+        }
+
+
         [HttpPost]
         //[AllowAnonymous]
         public IActionResult AddTeacher(AddTeacherDTO teacher)
@@ -41,23 +54,35 @@ namespace Student_Management_System.Controllers
             return Ok(_teacherService.AddTeacher(teacher));
         }
         
-        [HttpPost("Attendence")]
+        [HttpPost("att")]
         public IActionResult Addattendence(AddAttendenceDTO attendence)
         {
             return Ok(_teacherService.AddAttendence(attendence));
         }
-      
-        [HttpGet("StudentAttendence")]
-        public ActionResult<object> GetStudentAttendence(int id,int year)
+
+        [HttpPost("Mark")]
+        public IActionResult AddMarks(AddGradeBookDTO gradebook)
         {
-            return Ok(_teacherService.GetAttByTeacherId(id, year));
+            return Ok(_teacherService.AddMarks(gradebook));
         }
 
-        [HttpPut]
-        [Authorize(Roles = "Admin")]
+        
+        [HttpPut("teacher")]
+       [Authorize(Roles = "Admin")]
         public IActionResult UpdateTeacher(UpdateTeacherDTO teacher)
         {
             return Ok(_teacherService.UpdateTeacher(teacher));
+        }
+
+        [HttpPut("attendence")]
+        public IActionResult UpdateAttendence(UpdateAttendenceDTO attendence)
+        {
+            return Ok(_teacherService.UpdateAttendence(attendence));
+        }
+        [HttpPut("marks")]
+        public IActionResult UpdateMarks(UpdateGradeBookDTO gradebook)
+        {
+            return Ok(_teacherService.UpdateMarks(gradebook));
         }
     }
 }
